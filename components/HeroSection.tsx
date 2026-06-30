@@ -138,7 +138,7 @@ export const HeroSection = () => {
   }, []);
 
   return (
-    <section className="w-full bg-white text-zinc-950 px-6 sm:px-8 py-12 md:py-24 relative overflow-hidden flex flex-col items-center justify-center min-h-screen">
+    <section className="w-full bg-white text-zinc-950 px-4 py-12 md:py-24 relative overflow-hidden flex flex-col items-center justify-center min-h-screen">
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&display=swap" rel="stylesheet" />
@@ -192,9 +192,9 @@ export const HeroSection = () => {
         }
       `}</style>
 
-      <div className="w-full max-w-[85vw] sm:max-w-4xl mx-auto text-center space-y-4 z-10 flex flex-col items-center relative">
+      <div className="w-full max-w-[85vw] md:max-w-4xl mx-auto text-center space-y-4 z-10 flex flex-col items-center relative">
         
-        {/* ULTRA COMPACT TITLE: Dropped to text-2xl/3xl base mobile width sizing */}
+        {/* HARDLOCK SIZES: text-xl on mobile devices, scales up exactly to text-8xl on desktop panels */}
         <motion.h1 
           initial={{ opacity: 0, scale: 0.96, y: 15 }}
           animate={{ 
@@ -212,13 +212,13 @@ export const HeroSection = () => {
               repeatType: "reverse"
             }
           }}
-          className="text-2xl sm:text-5xl md:text-8xl tracking-tight uppercase leading-[0.9] select-none cursor-default pb-2 syne-title-gradient flex flex-col -space-y-0.5 sm:-space-y-2 md:-space-y-3"
+          className="text-3xl sm:text-5xl md:text-8xl tracking-tight uppercase leading-[0.95] select-none cursor-default pb-2 syne-title-gradient flex flex-col -space-y-0.5 sm:-space-y-2 md:-space-y-3"
         >
           <span>Mirza</span>
           <span>Shaheer</span>
         </motion.h1>
 
-        {/* COMPACT SUBTITLE: Shrunk to text-[10px] for crisp mobile spacing */}
+        {/* BODY TEXT SIZING RULES */}
         <motion.h2
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -228,18 +228,18 @@ export const HeroSection = () => {
           Turning Scrollers Into Buyers
         </motion.h2>
 
-        {/* COMPACT DUAL ACTION BUTTONS */}
+        {/* COMPACT BUTTON STRUCTURE */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.0 }}
-          className="flex flex-col sm:flex-row gap-3 w-full justify-center pt-1 max-w-[200px] sm:max-w-md px-2 sm:px-0"
+          className="flex flex-col sm:flex-row gap-3 w-full justify-center pt-1 max-w-[180px] sm:max-w-md px-2 sm:px-0"
         >
           <motion.a
             whileHover={{ scale: 1.02, y: -1 }}
             whileTap={{ scale: 0.98 }}
             href="#contact"
-            className="flex-1 bg-white rounded-lg py-2.5 font-black tracking-wide text-[10px] sm:text-sm select-none text-center cursor-pointer block text-black wireframe-3d-glow transition-transform duration-200"
+            className="flex-1 bg-white rounded-lg py-2.5 font-black tracking-wide text-[9px] sm:text-sm select-none text-center cursor-pointer block text-black wireframe-3d-glow transition-transform duration-200"
           >
             Initiate Project
           </motion.a>
@@ -248,7 +248,7 @@ export const HeroSection = () => {
             whileHover={{ scale: 1.02, y: -1 }}
             whileTap={{ scale: 0.98 }}
             href="#projects"
-            className="flex-1 bg-white rounded-lg py-2.5 font-black tracking-wide text-[10px] sm:text-sm select-none text-center cursor-pointer block text-black wireframe-3d-glow transition-transform duration-200"
+            className="flex-1 bg-white rounded-lg py-2.5 font-black tracking-wide text-[9px] sm:text-sm select-none text-center cursor-pointer block text-black wireframe-3d-glow transition-transform duration-200"
           >
             Review Case Studies
           </motion.a>
