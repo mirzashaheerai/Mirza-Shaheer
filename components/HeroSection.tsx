@@ -16,16 +16,24 @@ export const HeroSection = () => {
     let width = (canvas.width = canvas.offsetWidth);
     let height = (canvas.height = canvas.offsetHeight);
 
-    // Initial positioning strictly locked to the visual element's canvas center dimensions
     const mouse = { x: width / 2, y: height / 2, targetX: width / 2, targetY: height / 2 };
 
-    // FIX: Subtract window.scrollY so that scrolling downwards does not shift or offset the coordinate tracking boundaries
     const handleMouseMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect();
       mouse.targetX = e.clientX - rect.left;
       mouse.targetY = (e.clientY + window.scrollY) - (rect.top + window.scrollY);
     };
+
+    // Touch support for pristine mobile tracking symmetry
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches.length === 0) return;
+      const rect = canvas.getBoundingClientRect();
+      mouse.targetX = e.touches[0].clientX - rect.left;
+      mouse.targetY = (e.touches[0].clientY + window.scrollY) - (rect.top + window.scrollY);
+    };
+
     window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
 
     const handleResize = () => {
       if (!canvas) return;
@@ -124,13 +132,14 @@ export const HeroSection = () => {
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('resize', handleResize);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
   return (
-    <section className="w-full bg-white text-zinc-950 px-4 md:px-8 py-32 md:py-40 relative overflow-hidden flex flex-col items-center justify-center min-h-[85vh]">
+    <section className="w-full bg-white text-zinc-950 px-4 md:px-8 py-16 md:py-24 relative overflow-hidden flex flex-col items-center justify-center min-h-screen">
       {/* Google Fonts Dynamic Asset Injection */}
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -190,9 +199,9 @@ export const HeroSection = () => {
         }
       `}</style>
 
-      <div className="max-w-4xl mx-auto text-center space-y-4 z-10 flex flex-col items-center relative">
+      <div className="w-full max-w-4xl mx-auto text-center space-y-4 z-10 flex flex-col items-center relative">
         
-        {/* TWO-ROW TITLING */}
+        {/* TWO-ROW TITLING WITH FLUID SCALING */}
         <motion.h1 
           initial={{ opacity: 0, scale: 0.96, y: 15 }}
           animate={{ 
@@ -210,7 +219,7 @@ export const HeroSection = () => {
               repeatType: "reverse"
             }
           }}
-          className="text-6xl md:text-7xl lg:text-8xl tracking-tight uppercase leading-[0.85] select-none cursor-default pb-4 syne-title-gradient flex flex-col -space-y-1 sm:-space-y-2 md:-space-y-3"
+          className="text-5xl sm:text-7xl md:text-8xl tracking-tight uppercase leading-[0.85] select-none cursor-default pb-4 syne-title-gradient flex flex-col -space-y-1 sm:-space-y-2 md:-space-y-3"
         >
           <span>Mirza</span>
           <span>Shaheer</span>
@@ -221,17 +230,17 @@ export const HeroSection = () => {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className="text-base sm:text-lg md:text-xl tracking-[0.05em] uppercase text-black pt-2 pb-6 max-w-4xl whitespace-nowrap syne-text"
+          className="text-sm sm:text-lg md:text-xl tracking-[0.05em] uppercase text-black pt-2 pb-6 max-w-full px-2 syne-text sm:whitespace-nowrap"
         >
           Turning Scrollers Into Buyers
         </motion.h2>
 
-        {/* DUAL WHITE CALL TO ACTIONS */}
+        {/* DUAL CALL TO ACTIONS */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.0 }}
-          className="flex flex-col sm:flex-row gap-4 w-full justify-center pt-2 max-w-md"
+          className="flex flex-col sm:flex-row gap-4 w-full justify-center pt-2 max-w-xs sm:max-w-md px-4 sm:px-0"
         >
           <motion.a
             whileHover={{ scale: 1.03, y: -2 }}
