@@ -1,31 +1,34 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { ReactNode } from 'react';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Muhammad Shaheer | Premium 3D Portfolio',
-  description: 'Creative developer showcasing premium 3D projects and digital experiences',
-  keywords: ['portfolio', 'developer', '3D', 'react', 'web design'],
-  authors: [{ name: 'Muhammad Shaheer' }],
+  title: 'Mirza Shaheer | Premium AI Brand Content Portfolio',
+  description: 'AI content strategy and generation transforming scrollers into buyers.',
+  keywords: ['portfolio', 'AI brand strategist', 'content production', 'digital marketing'],
+  authors: [{ name: 'Mirza Shaheer' }],
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://shaheer-portfolio.netlify.app',
-    siteName: 'Muhammad Shaheer Portfolio',
-    title: 'Muhammad Shaheer | Premium 3D Portfolio',
-    description: 'Creative developer showcasing premium 3D projects and digital experiences',
+    url: 'https://mirza-shaheer.vercel.app',
+    siteName: 'Mirza Shaheer Portfolio',
+    title: 'Mirza Shaheer | Premium AI Brand Content Portfolio',
+    description: 'AI content strategy and generation transforming scrollers into buyers.',
   },
+};
+
+// Official Next.js Viewport Engine to lock mobile scaling perfectly 1:1
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
-      <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </head>
-      <body>
+    <html lang="en" className="scroll-smooth">
+      <body className="overflow-x-hidden w-full bg-white text-zinc-950 antialiased">
         {children}
       </body>
     </html>
