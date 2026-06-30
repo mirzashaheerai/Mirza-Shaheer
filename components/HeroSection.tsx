@@ -24,7 +24,6 @@ export const HeroSection = () => {
       mouse.targetY = (e.clientY + window.scrollY) - (rect.top + window.scrollY);
     };
 
-    // Touch support for pristine mobile tracking symmetry
     const handleTouchMove = (e: TouchEvent) => {
       if (e.touches.length === 0) return;
       const rect = canvas.getBoundingClientRect();
@@ -139,21 +138,17 @@ export const HeroSection = () => {
   }, []);
 
   return (
-    <section className="w-full bg-white text-zinc-950 px-4 md:px-8 py-16 md:py-24 relative overflow-hidden flex flex-col items-center justify-center min-h-screen">
-      {/* Google Fonts Dynamic Asset Injection */}
+    <section className="w-full bg-white text-zinc-950 px-6 sm:px-8 py-12 md:py-24 relative overflow-hidden flex flex-col items-center justify-center min-h-screen">
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&display=swap" rel="stylesheet" />
 
-      {/* Immediate Load Background Canvas Object */}
       <canvas 
         ref={canvasRef} 
         className="absolute top-0 left-0 w-full h-full pointer-events-none z-0"
       />
 
-      {/* Global CSS Style Engine */}
       <style jsx global>{`
-        /* --- BRAND 3D OBJECT SCROLLBAR ENGINE --- */
         ::-webkit-scrollbar {
           width: 10px;
           height: 10px;
@@ -169,13 +164,11 @@ export const HeroSection = () => {
         ::-webkit-scrollbar-thumb:hover {
           background: #f20d26;
         }
-        /* Firefox Engine Support Hook */
         * {
           scrollbar-width: thin;
           scrollbar-color: #591acc #ffffff;
         }
 
-        /* --- FRAMEWORK DESIGN ANIMATION REGS --- */
         @keyframes dynamicGlow {
           0% { border-color: #ff33a6; box-shadow: 0 0 15px rgba(255, 51, 166, 0.12); }
           33% { border-color: #591acc; box-shadow: 0 0 15px rgba(89, 26, 204, 0.12); }
@@ -199,9 +192,9 @@ export const HeroSection = () => {
         }
       `}</style>
 
-      <div className="w-full max-w-4xl mx-auto text-center space-y-4 z-10 flex flex-col items-center relative">
+      <div className="w-full max-w-[85vw] sm:max-w-4xl mx-auto text-center space-y-4 z-10 flex flex-col items-center relative">
         
-        {/* TWO-ROW TITLING WITH FLUID SCALING */}
+        {/* ULTRA COMPACT TITLE: Dropped to text-2xl/3xl base mobile width sizing */}
         <motion.h1 
           initial={{ opacity: 0, scale: 0.96, y: 15 }}
           animate={{ 
@@ -219,43 +212,43 @@ export const HeroSection = () => {
               repeatType: "reverse"
             }
           }}
-          className="text-5xl sm:text-7xl md:text-8xl tracking-tight uppercase leading-[0.85] select-none cursor-default pb-4 syne-title-gradient flex flex-col -space-y-1 sm:-space-y-2 md:-space-y-3"
+          className="text-2xl sm:text-5xl md:text-8xl tracking-tight uppercase leading-[0.9] select-none cursor-default pb-2 syne-title-gradient flex flex-col -space-y-0.5 sm:-space-y-2 md:-space-y-3"
         >
           <span>Mirza</span>
           <span>Shaheer</span>
         </motion.h1>
 
-        {/* SINGLE ROW COMPACT TYPOGRAPHY */}
+        {/* COMPACT SUBTITLE: Shrunk to text-[10px] for crisp mobile spacing */}
         <motion.h2
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className="text-sm sm:text-lg md:text-xl tracking-[0.05em] uppercase text-black pt-2 pb-6 max-w-full px-2 syne-text sm:whitespace-nowrap"
+          className="text-[10px] sm:text-base md:text-xl tracking-[0.05em] uppercase text-black pt-1 pb-4 max-w-full px-2 syne-text sm:whitespace-nowrap"
         >
           Turning Scrollers Into Buyers
         </motion.h2>
 
-        {/* DUAL CALL TO ACTIONS */}
+        {/* COMPACT DUAL ACTION BUTTONS */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.0 }}
-          className="flex flex-col sm:flex-row gap-4 w-full justify-center pt-2 max-w-xs sm:max-w-md px-4 sm:px-0"
+          className="flex flex-col sm:flex-row gap-3 w-full justify-center pt-1 max-w-[200px] sm:max-w-md px-2 sm:px-0"
         >
           <motion.a
-            whileHover={{ scale: 1.03, y: -2 }}
+            whileHover={{ scale: 1.02, y: -1 }}
             whileTap={{ scale: 0.98 }}
             href="#contact"
-            className="flex-1 bg-white rounded-xl py-4 font-black tracking-wide text-sm select-none text-center cursor-pointer block text-black wireframe-3d-glow transition-transform duration-200"
+            className="flex-1 bg-white rounded-lg py-2.5 font-black tracking-wide text-[10px] sm:text-sm select-none text-center cursor-pointer block text-black wireframe-3d-glow transition-transform duration-200"
           >
             Initiate Project
           </motion.a>
 
           <motion.a
-            whileHover={{ scale: 1.03, y: -2 }}
+            whileHover={{ scale: 1.02, y: -1 }}
             whileTap={{ scale: 0.98 }}
             href="#projects"
-            className="flex-1 bg-white rounded-xl py-4 font-black tracking-wide text-sm select-none text-center cursor-pointer block text-black wireframe-3d-glow transition-transform duration-200"
+            className="flex-1 bg-white rounded-lg py-2.5 font-black tracking-wide text-[10px] sm:text-sm select-none text-center cursor-pointer block text-black wireframe-3d-glow transition-transform duration-200"
           >
             Review Case Studies
           </motion.a>
