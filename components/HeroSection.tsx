@@ -192,9 +192,10 @@ export const HeroSection = () => {
         }
       `}</style>
 
-      <div className="w-full max-w-[85vw] md:max-w-4xl mx-auto text-center space-y-4 z-10 flex flex-col items-center relative">
+      {/* Container sizing matches text boundary width limits */}
+      <div className="w-full max-w-[90vw] md:max-w-4xl mx-auto text-center space-y-4 z-10 flex flex-col items-center relative">
         
-        {/* HARDLOCK SIZES: text-xl on mobile devices, scales up exactly to text-8xl on desktop panels */}
+        {/* INCREASED TITLE SIZING: Set to text-4xl on base mobile profiles, completely unchanged on desktop layout profiles */}
         <motion.h1 
           initial={{ opacity: 0, scale: 0.96, y: 15 }}
           animate={{ 
@@ -212,23 +213,23 @@ export const HeroSection = () => {
               repeatType: "reverse"
             }
           }}
-          className="text-3xl sm:text-5xl md:text-8xl tracking-tight uppercase leading-[0.95] select-none cursor-default pb-2 syne-title-gradient flex flex-col -space-y-0.5 sm:-space-y-2 md:-space-y-3"
+          className="text-4xl sm:text-5xl md:text-8xl tracking-tight uppercase leading-[0.95] select-none cursor-default pb-2 syne-title-gradient flex flex-col -space-y-0.5 sm:-space-y-2 md:-space-y-3"
         >
           <span>Mirza</span>
           <span>Shaheer</span>
         </motion.h1>
 
-        {/* BODY TEXT SIZING RULES */}
+        {/* SINGLE ROW HARDLOCK: Set to text-[9px] and forced to whitespace-nowrap to prevent breaks */}
         <motion.h2
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className="text-[10px] sm:text-base md:text-xl tracking-[0.05em] uppercase text-black pt-1 pb-4 max-w-full px-2 syne-text sm:whitespace-nowrap"
+          className="text-[9px] sm:text-base md:text-xl tracking-[0.05em] uppercase text-black pt-1 pb-4 max-w-full px-2 syne-text whitespace-nowrap"
         >
           Turning Scrollers Into Buyers
         </motion.h2>
 
-        {/* COMPACT BUTTON STRUCTURE */}
+        {/* COMPACT BUTTON ROW */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
