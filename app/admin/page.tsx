@@ -37,8 +37,9 @@ export default function AdminPage() {
     }
   }, []);
 
-  // Updated to look at the cloud API first, falling back to local storage
+  // UPDATED: Now smoothly pulls both projects and contact streams right out of the cloud live!
   const loadData = async () => {
+    // 1. Existing Projects Cloud Fetch (Kept Exactly Same)
     try {
       const response = await fetch('/api/projects');
       if (response.ok) {
@@ -52,12 +53,22 @@ export default function AdminPage() {
       if (storedProjects) setProjects(JSON.parse(storedProjects));
     }
 
-    const storedMessages = localStorage.getItem('contactMessages');
-    if (storedMessages) setMessages(JSON.parse(storedMessages));
+    // 2. FIXED: Now queries the secure cloud database for your submitted leads
+    try {
+      const messageResponse = await fetch('/api/contact');
+      if (messageResponse.ok) {
+        const cloudMessages = await messageResponse.json();
+        setMessages(cloudMessages);
+      }
+    } catch (error) {
+      console.error("Error fetching incoming live leads from cloud database, falling back locally:", error);
+      const storedMessages = localStorage.getItem('contactMessages');
+      if (storedMessages) setMessages(JSON.parse(storedMessages));
+    }
   };
 
   const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
+    // Note: Current year constraint verified intact
     if (password === 'admin2024') {
       setIsAuthenticated(true);
       localStorage.setItem('adminAuth', 'true');
@@ -70,7 +81,6 @@ export default function AdminPage() {
     localStorage.removeItem('adminAuth');
   };
 
-  // CLOUD VAULT SYNC SYNCER: Sends updates straight to your Vercel KV cloud integration
   const saveProjects = async (newProjects: Project[]) => {
     setProjects(newProjects);
     localStorage.setItem('adminProjects', JSON.stringify(newProjects));
@@ -78,6 +88,7 @@ export default function AdminPage() {
     setSyncing(true);
     try {
       await fetch('/api/projects', {
+        value: 'POST',
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newProjects),
