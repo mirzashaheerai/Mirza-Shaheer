@@ -25,7 +25,8 @@ export const TestimonialsSection = () => {
   const doubleTestimonials = [...testimonials, ...testimonials];
 
   return (
-    <section id="testimonials" className="w-full bg-white text-zinc-950 py-24 overflow-hidden">
+    /* FIXED: Decreased main section padding from py-24 to py-8 md:py-12 */
+    <section id="testimonials" className="w-full bg-white text-zinc-950 py-8 md:py-12 overflow-hidden">
       {/* Interactive 3D Theme Colors & Animation Matrix */}
       <style jsx global>{`
         @keyframes dynamicGlow {
@@ -51,7 +52,8 @@ export const TestimonialsSection = () => {
         }
       `}</style>
 
-      <div className="max-w-5xl mx-auto px-4 md:px-8 mb-16">
+      {/* FIXED: Tightened margin under header block down to mb-8 */}
+      <div className="max-w-5xl mx-auto px-4 md:px-8 mb-8">
         <span className="text-sm font-black tracking-[0.2em] uppercase block mb-3 theme-3d-text">
           03 // Verified Growth
         </span>
@@ -61,7 +63,7 @@ export const TestimonialsSection = () => {
       </div>
 
       {/* INFINITE MARQUEE STRIP */}
-      <div className="w-full marquee-track relative flex overflow-x-hidden py-6">
+      <div className="w-full marquee-track relative flex overflow-x-hidden py-4">
         <motion.div 
           className="flex space-x-6 shrink-0 marquee-mover"
           animate={{ x: ["0%", "-50%"] }}
@@ -74,15 +76,16 @@ export const TestimonialsSection = () => {
           {doubleTestimonials.map((item, idx) => (
             <div
               key={`${item.id}-${idx}`}
-              className="w-[320px] md:w-[380px] bg-zinc-50/90 rounded-2xl p-6 flex flex-col justify-between cursor-pointer select-none relative transition-all duration-300 ease-out hover:bg-white hover:scale-[1.05] hover:-translate-y-3 hover:z-20 wireframe-3d-glow"
+              /* FIXED: Responsive width (w-[270px] on mobile, w-[380px] on desktop) and responsive padding (p-4 to p-6) */
+              className="w-[270px] md:w-[380px] bg-zinc-50/90 rounded-2xl p-4 md:p-6 flex flex-col justify-between cursor-pointer select-none relative transition-all duration-300 ease-out hover:bg-white hover:scale-[1.05] hover:-translate-y-3 hover:z-20 wireframe-3d-glow"
             >
               {/* Giant 3D Object Theme Quote Accent */}
-              <span className="absolute -top-2 left-4 text-6xl font-serif select-none pointer-events-none opacity-20 theme-3d-text">
+              <span className="absolute -top-2 left-4 text-5xl md:text-6xl font-serif select-none pointer-events-none opacity-20 theme-3d-text">
                 “
               </span>
 
-              {/* Quote Content */}
-              <p className="text-zinc-700 text-sm md:text-base font-semibold leading-relaxed mb-6 pt-4 relative z-10">
+              {/* Quote Content - FIXED: Responsive shrunken text on mobile (text-xs) */}
+              <p className="text-zinc-700 text-xs md:text-base font-semibold leading-relaxed mb-4 md:mb-6 pt-4 relative z-10">
                 “{item.content}”
               </p>
 
@@ -92,14 +95,14 @@ export const TestimonialsSection = () => {
               {/* Meta Data */}
               <div className="flex items-center justify-between relative z-10">
                 <div>
-                  <h4 className="text-sm font-black tracking-tight text-zinc-950">
+                  <h4 className="text-xs md:text-sm font-black tracking-tight text-zinc-950">
                     {item.name}
                   </h4>
-                  <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mt-0.5">
+                  <p className="text-[9px] md:text-[10px] font-bold text-zinc-400 uppercase tracking-widest mt-0.5">
                     {item.role}
                   </p>
                 </div>
-                <span className="text-xs font-black font-mono theme-3d-text bg-zinc-100 px-3 py-1 rounded-full">
+                <span className="text-[10px] md:text-xs font-black font-mono theme-3d-text bg-zinc-100 px-2.5 py-1 rounded-full">
                   {item.company}
                 </span>
               </div>
