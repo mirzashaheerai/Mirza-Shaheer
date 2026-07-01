@@ -5,7 +5,8 @@ import { motion } from 'framer-motion';
 
 export const ContactSection = () => {
   return (
-    <section id="contact" className="w-full bg-white text-zinc-950 px-4 md:px-8 py-24 relative overflow-hidden">
+    /* FIXED: Decreased vertical padding from py-24 to py-8 md:py-12 */
+    <section id="contact" className="w-full bg-white text-zinc-950 px-4 md:px-8 py-8 md:py-12 relative overflow-hidden">
       
       {/* Dynamic 3D Theme Style Definitions */}
       <style dangerouslySetInnerHTML={{__html: `
@@ -40,8 +41,8 @@ export const ContactSection = () => {
         </defs>
       </svg>
       
-      {/* HEADER */}
-      <div className="max-w-3xl mx-auto text-center mb-16 space-y-4">
+      {/* HEADER - FIXED: Tightened bottom margin from mb-16 to mb-8 */}
+      <div className="max-w-3xl mx-auto text-center mb-8 space-y-4">
         <span className="text-sm font-black tracking-[0.2em] uppercase block theme-3d-text">
           04 // Collaboration Hub
         </span>
@@ -94,14 +95,13 @@ export const ContactSection = () => {
           </div>
         </div>
         
-        {/* RIGHT COLUMN: FIXED Form Container using direct HTML actions */}
+        {/* RIGHT COLUMN: Form Container */}
         <div className="lg:col-span-7 bg-zinc-50 border border-zinc-100 p-8 rounded-2xl">
           <form 
             action="https://formspree.io/f/mkolqjyj" 
             method="POST" 
             className="space-y-5"
           >
-            {/* Hidden fallback config to protect inbox filters */}
             <input type="hidden" name="_subject" value="Portfolio Direct Pipeline Lead" />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
