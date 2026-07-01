@@ -86,7 +86,8 @@ const servicesList: Service[] = [
 
 export const ServicesSection = () => {
   return (
-    <div className="w-full bg-white text-zinc-950 px-4 md:px-8 py-24">
+    /* FIXED: Tightened layout container tracking boundary down to clean vertical blocks */
+    <div className="w-full bg-white text-zinc-950 px-4 md:px-8 py-8 md:py-12">
       
       {/* Glow Boundaries CSS Injection */}
       <style jsx global>{`
@@ -104,7 +105,8 @@ export const ServicesSection = () => {
         }
       `}</style>
 
-      <div className="max-w-4xl mx-auto mb-16">
+      {/* FIXED: Compressed spacing under the header block to look closely anchored */}
+      <div className="max-w-4xl mx-auto mb-10">
         <span className="text-sm font-bold tracking-[0.2em] text-zinc-400 uppercase block mb-2">
           Expertise Matrix
         </span>
