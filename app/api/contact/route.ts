@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { kv } from '@vercel/kv';
 
-export const dynamic = 'force-dynamic'; // Ensures Vercel updates live data on demand
+export const dynamic = 'force-dynamic';
 
 interface ContactMessage {
   id: string;
@@ -12,20 +12,20 @@ interface ContactMessage {
   timestamp: string;
 }
 
-// 1. THIS CAPTURES USER MESSAGES FROM THE FORM AND SAVES THEM TO THE CLOUD
 export async function POST(request: NextRequest) {
   try {
     const { name, email, subject, message } = await request.json();
 
-    if (!name || !email || !subject || !message) {
-      return NextResponse.json({ error: 'All fields are required' }, { status: 400 });
+    // REMOVED 'subject' from the mandatory check so your form can submit cleanly!
+    if (!name || !email || !message) {
+      return NextResponse.json({ error: 'All required fields must be filled' }, { status: 400 });
     }
 
     const newMessage: ContactMessage = {
       id: Date.now().toString(),
       name,
       email,
-      subject,
+      subject: subject || 'No Subject Provided', // Fallback if subject is missing
       message,
       timestamp: new Date().toISOString(),
     };
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
     // Pull current messages from Vercel KV cloud storage, default to empty list if none exist
     const existingMessages: ContactMessage[] = (await kv.get('contactMessages')) || [];
     
-    // Unshift puts the newest message cleanly at the very top of your list
+    // Put the newest message cleanly at the very top of your list
     const updatedMessages = [newMessage, ...existingMessages];
     
     // Save the entire updated array back into the Vercel KV cloud vault
@@ -52,7 +52,6 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// 2. THIS ALLOWS YOUR ADMIN PANEL TO FETCH THE SECURE CLOUD INBOX
 export async function GET() {
   try {
     const messages = await kv.get('contactMessages');
@@ -63,6 +62,6 @@ export async function GET() {
     });
   } catch (error) {
     console.error('Failed to fetch inbox messages from cloud:', error);
-    return NextResponse.json([], { status: 200 }); // Graceful fallback
+    return NextResponse.json([], { status: 200 });
   }
 }
