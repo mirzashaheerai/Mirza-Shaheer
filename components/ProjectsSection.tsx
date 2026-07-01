@@ -14,56 +14,31 @@ interface Project {
   description?: string;
 }
 
-// PREMIUM HARDCODED FALLBACKS: Showcases work instantly to public users if localStorage is empty
-const STATIC_FALLBACK_PROJECTS: Project[] = [
-  {
-    id: 901,
-    title: "Premium Fashion Campaign",
-    category: "AI Brand Content Production",
-    imageUrl: "https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=600&auto=format&fit=crop",
-    description: "High-end visual asset execution and narrative strategy matching immersive digital aesthetics for an elite couture collection."
-  },
-  {
-    id: 902,
-    title: "Luxury Perfume Label",
-    category: "Visual Identity & Strategy",
-    imageUrl: "https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=600&auto=format&fit=crop",
-    description: "Minimalist composition and narrative architecture designed to capture high-intent digital audiences."
-  },
-  {
-    id: 903,
-    title: "Elite Clothing Ecosystem",
-    category: "Content Strategy",
-    imageUrl: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=600&auto=format&fit=crop",
-    description: "High-retention digital assets configured for cross-platform visual synchronization and optimized performance."
-  }
-];
-
 export const ProjectsSection = () => {
-  const [projects, setProjects] = useState<Project[]>(STATIC_FALLBACK_PROJECTS);
+  // Starts empty and populates directly from your live Vercel cloud database
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loadProjects = () => {
-      const stored = localStorage.getItem('adminProjects');
-      if (stored) {
-        try {
-          let parsed = JSON.parse(stored);
-          if (Array.isArray(parsed) && parsed.length > 0) {
-            setProjects(parsed);
-          } else {
-            setProjects(STATIC_FALLBACK_PROJECTS);
+    const fetchCloudProjects = async () => {
+      try {
+        const response = await fetch('/api/projects');
+        if (response.ok) {
+          const data = await response.json();
+          if (Array.isArray(data)) {
+            setProjects(data);
           }
-        } catch (e) {
-          console.error("Error parsing projects:", e);
-          setProjects(STATIC_FALLBACK_PROJECTS);
         }
-      } else {
-        setProjects(STATIC_FALLBACK_PROJECTS);
+      } catch (error) {
+        console.error("Error fetching live database projects:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
-    loadProjects();
-    const interval = setInterval(loadProjects, 2000);
+    fetchCloudProjects();
+    // Keeps both desktop and mobile views perfectly synchronized every 3 seconds
+    const interval = setInterval(fetchCloudProjects, 3000);
     return () => clearInterval(interval);
   }, []);
 
@@ -120,73 +95,4 @@ export const ProjectsSection = () => {
         .theme-3d-text {
           background: linear-gradient(90deg, #ff33a6, #591acc, #f20d26);
           -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-        }
-      `}</style>
-
-      <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-        
-        <div className="lg:col-span-4 z-10 space-y-4 text-center lg:text-left">
-          <span className="text-xs font-black tracking-[0.2em] uppercase block theme-3d-text">
-            02 // Portfolio Exhibit
-          </span>
-          <h2 className="text-3xl md:text-5xl font-black tracking-tight text-zinc-950 leading-[1.1]">
-            Featured Cases.
-          </h2>
-          <p className="text-zinc-600 text-xs md:text-sm font-medium leading-relaxed max-w-sm mx-auto lg:mx-0">
-            From high-retention UGC and premium fashion campaigns to minimalist branding and high-converting content for elite restaurant, clothing, and perfume labels—I engineer visual ecosystems that turn scrollers into revenue.
-          </p>
-        </div>
-
-        <motion.div 
-          className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pt-6 lg:pt-0"
-        >
-          {projects.map((project) => (
-            <motion.div
-              key={project.id}
-              whileHover={{ 
-                scale: 1.03,
-                y: -4,
-                transition: { duration: 0.2, ease: "easeOut" }
-              }}
-              onClick={() => openProject(project)}
-              className="wireframe-3d-glow bg-zinc-900/5 rounded-2xl p-4 h-44 flex flex-col justify-end cursor-pointer select-none relative overflow-hidden group transition-all duration-300 min-w-0"
-            >
-              {/* Media Content Injection */}
-              {((project.videoUrls && project.videoUrls[0]) || project.videoUrl) ? (
-                <video 
-                  src={project.videoUrls?.[0] || project.videoUrl} 
-                  autoPlay 
-                  loop 
-                  muted 
-                  playsInline 
-                  className="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-90 transition-opacity duration-300 pointer-events-none" 
-                />
-              ) : ((project.imageUrls && project.imageUrls[0]) || project.imageUrl) ? (
-                <img 
-                  src={project.imageUrls?.[0] || project.imageUrl} 
-                  alt={project.title} 
-                  className="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-90 transition-opacity duration-300 pointer-events-none" 
-                />
-              ) : (
-                <div className="absolute inset-0 bg-gradient-to-br from-zinc-100 to-zinc-200 z-0" />
-              )}
-
-              {/* High-Contrast Dynamic Overlay Mask */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10" />
-
-              <div className="z-20 relative">
-                <span className="text-[9px] uppercase font-bold tracking-wider text-zinc-400 block mb-0.5">
-                  {project.category}
-                </span>
-                <h3 className="text-xs font-black tracking-[0.05em] text-white uppercase truncate">
-                  {project.title}
-                </h3>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-    </section>
-  );
-};
+          -webkit-text
