@@ -78,7 +78,8 @@ export const ProjectsSection = () => {
   };
 
   return (
-    <section id="projects" className="w-full bg-white text-zinc-950 px-6 md:px-8 py-20 md:py-28 overflow-hidden">
+    /* FIXED: Tightened spacing metrics down from py-20 md:py-28 to py-8 md:py-12 */
+    <section id="projects" className="w-full bg-white text-zinc-950 px-6 md:px-8 py-8 md:py-12 overflow-hidden">
       <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
         
         <div className="lg:col-span-4 z-10 space-y-4 text-center lg:text-left">
@@ -93,8 +94,9 @@ export const ProjectsSection = () => {
           </p>
         </div>
 
+        {/* FIXED: Shifted top layout gap padding down to fit tighter structure */}
         <motion.div 
-          className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pt-6 lg:pt-0"
+          className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pt-2 lg:pt-0"
         >
           {loading ? (
             <div className="col-span-full text-center py-10 text-zinc-400 font-bold tracking-widest text-xs uppercase animate-pulse">
