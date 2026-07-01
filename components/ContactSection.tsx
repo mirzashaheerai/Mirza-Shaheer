@@ -24,10 +24,19 @@ export const ContactSection = () => {
     setLoading(true);
 
     try {
-      const response = await fetch('/api/contact', {
+      // FIXED: Safely integrated your Formspree endpoint handler
+      const response = await fetch('https://formspree.io/f/mkolqjyj', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        headers: { 
+          'Accept': 'application/json',
+          'Content-Type': 'application/json' 
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject || 'Portfolio Direct Pipeline Lead',
+          message: formData.message,
+        }),
       });
 
       if (response.ok) {
@@ -67,6 +76,7 @@ export const ContactSection = () => {
           fill: url(#theme3DGradientMesh);
         }
       `}</style>
+      
       {/* Global Shared SVG Color Reference Block */}
       <svg className="absolute w-0 h-0" aria-hidden="true" focusable="false">
         <defs>
@@ -77,6 +87,7 @@ export const ContactSection = () => {
           </linearGradient>
         </defs>
       </svg>
+      
       {/* HEADER: Perfectly Vertically & Horizontally Centered */}
       <div className="max-w-3xl mx-auto text-center mb-16 space-y-4">
         <span className="text-sm font-black tracking-[0.2em] uppercase block theme-3d-text">
@@ -89,14 +100,15 @@ export const ContactSection = () => {
           Ready to scale your digital presence? Reach out below to deploy high-retention video pipelines, minimalist branding frameworks, and conversion systems built directly for premium markets.
         </p>
       </div>
+      
       <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-       
+        
         {/* LEFT COLUMN: 3D Gradient Object Icons Block */}
         <div className="lg:col-span-5 space-y-6">
           <h3 className="text-lg font-black tracking-tight text-zinc-950">
             Direct Comm Channels
           </h3>
-         
+          
           <div className="space-y-4">
             {/* EMAIL INTERACTIVE HUB */}
             <a href="mailto:mirzashaheer.ai@gmail.com" className="flex items-center space-x-4 p-4 rounded-xl bg-zinc-50 border border-zinc-100 hover:bg-zinc-100/50 transition-colors group">
@@ -108,6 +120,7 @@ export const ContactSection = () => {
                 <p className="text-sm font-bold text-zinc-950 mt-0.5">mirzashaheer.ai@gmail.com</p>
               </div>
             </a>
+            
             {/* WHATSAPP DYNAMIC ROUTER */}
             <a href="https://wa.me/923319937307" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-4 p-4 rounded-xl bg-zinc-50 border border-zinc-100 hover:bg-zinc-100/50 transition-colors group">
               <svg className="w-6 h-6 theme-3d-svg-fill shrink-0" viewBox="0 0 24 24">
@@ -118,6 +131,7 @@ export const ContactSection = () => {
                 <p className="text-sm font-bold text-zinc-950 mt-0.5">+92 331 9937307</p>
               </div>
             </a>
+            
             {/* LINKEDIN HUB ANCHOR */}
             <a href="https://www.linkedin.com/in/muhammad-shaheer-0b800837a/" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-4 p-4 rounded-xl bg-zinc-50 border border-zinc-100 hover:bg-zinc-100/50 transition-colors group">
               <svg className="w-6 h-6 theme-3d-svg-fill shrink-0" viewBox="0 0 24 24">
@@ -130,6 +144,7 @@ export const ContactSection = () => {
             </a>
           </div>
         </div>
+        
         {/* RIGHT COLUMN: Contact Form Wrapper */}
         <div className="lg:col-span-7 bg-zinc-50 border border-zinc-100 p-8 rounded-2xl">
           <form onSubmit={handleSubmit} className="space-y-5">
@@ -159,6 +174,7 @@ export const ContactSection = () => {
                 />
               </div>
             </div>
+            
             <div className="space-y-1.5">
               <label className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Message Brief</label>
               <textarea 
@@ -171,6 +187,7 @@ export const ContactSection = () => {
                 placeholder="Tell me about your scaling objectives..."
               ></textarea>
             </div>
+            
             {/* OUTLINE BUTTON: Dynamic 3D color boundary outline with hard-locked internal text gradient colors on hover */}
             <motion.button
               whileHover={{ scale: 1.02, y: -1 }}
