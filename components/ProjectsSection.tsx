@@ -15,7 +15,6 @@ interface Project {
 }
 
 export const ProjectsSection = () => {
-  // Starts empty and populates directly from your live Vercel cloud database
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -37,7 +36,6 @@ export const ProjectsSection = () => {
     };
 
     fetchCloudProjects();
-    // Keeps both desktop and mobile views perfectly synchronized every 3 seconds
     const interval = setInterval(fetchCloudProjects, 3000);
     return () => clearInterval(interval);
   }, []);
@@ -81,18 +79,84 @@ export const ProjectsSection = () => {
 
   return (
     <section id="projects" className="w-full bg-white text-zinc-950 px-6 md:px-8 py-20 md:py-28 overflow-hidden">
-      <style jsx global>{`
-        @keyframes dynamicGlow {
-          0% { border-color: #ff33a6; box-shadow: 0 0 15px rgba(255, 51, 166, 0.1); }
-          33% { border-color: #591acc; box-shadow: 0 0 15px rgba(89, 26, 204, 0.1); }
-          66% { border-color: #f20d26; box-shadow: 0 0 15px rgba(242, 13, 38, 0.1); }
-          100% { border-color: #ff33a6; box-shadow: 0 0 15px rgba(255, 51, 166, 0.1); }
-        }
-        .wireframe-3d-glow {
-          border: 2px solid #ff33a6;
-          animation: dynamicGlow 6s linear infinite;
-        }
-        .theme-3d-text {
-          background: linear-gradient(90deg, #ff33a6, #591acc, #f20d26);
-          -webkit-background-clip: text;
-          -webkit-text
+      <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        
+        <div className="lg:col-span-4 z-10 space-y-4 text-center lg:text-left">
+          <span className="text-xs font-black tracking-[0.2em] uppercase block bg-gradient-to-r from-pink-500 via-purple-600 to-red-500 bg-clip-text text-transparent">
+            02 // Portfolio Exhibit
+          </span>
+          <h2 className="text-3xl md:text-5xl font-black tracking-tight text-zinc-950 leading-[1.1]">
+            Featured Cases.
+          </h2>
+          <p className="text-zinc-600 text-xs md:text-sm font-medium leading-relaxed max-w-sm mx-auto lg:mx-0">
+            From high-retention UGC and premium fashion campaigns to minimalist branding and high-converting content for elite restaurant, clothing, and perfume labels—I engineer visual ecosystems that turn scrollers into revenue.
+          </p>
+        </div>
+
+        <motion.div 
+          className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pt-6 lg:pt-0"
+        >
+          {loading ? (
+            <div className="col-span-full text-center py-10 text-zinc-400 font-bold tracking-widest text-xs uppercase animate-pulse">
+              Loading dynamic exhibition...
+            </div>
+          ) : projects.length === 0 ? (
+            <div className="col-span-full text-center py-10 text-zinc-400 text-xs uppercase font-medium">
+              No live assets found. Deploy them from the admin dashboard.
+            </div>
+          ) : (
+            projects.map((project) => {
+              const videoSrc = project.videoUrls?.[0] || project.videoUrl;
+              const imgSrc = project.imageUrls?.[0] || project.imageUrl;
+
+              return (
+                <motion.div
+                  key={project.id}
+                  whileHover={{ 
+                    scale: 1.03,
+                    y: -4,
+                    transition: { duration: 0.2, ease: "easeOut" }
+                  }}
+                  onClick={() => openProject(project)}
+                  className="bg-zinc-900/5 rounded-2xl p-4 h-44 flex flex-col justify-end cursor-pointer select-none relative overflow-hidden group transition-all duration-300 min-w-0 border-2 border-pink-500 shadow-[0_0_15px_rgba(255,51,166,0.1)] hover:border-purple-600"
+                >
+                  {/* Media Content Injection */}
+                  {videoSrc ? (
+                    <video 
+                      src={videoSrc} 
+                      autoPlay 
+                      loop 
+                      muted 
+                      playsInline 
+                      className="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-90 transition-opacity duration-300 pointer-events-none" 
+                    />
+                  ) : imgSrc ? (
+                    <img 
+                      src={imgSrc} 
+                      alt={project.title} 
+                      className="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-90 transition-opacity duration-300 pointer-events-none" 
+                    />
+                  ) : (
+                    <div className="absolute inset-0 bg-gradient-to-br from-zinc-100 to-zinc-200 z-0" />
+                  )}
+
+                  {/* High-Contrast Dynamic Overlay Mask */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10" />
+
+                  <div className="z-20 relative">
+                    <span className="text-[9px] uppercase font-bold tracking-wider text-zinc-400 block mb-0.5">
+                      {project.category}
+                    </span>
+                    <h3 className="text-xs font-black tracking-[0.05em] text-white uppercase truncate">
+                      {project.title}
+                    </h3>
+                  </div>
+                </motion.div>
+              );
+            })
+          )}
+        </motion.div>
+      </div>
+    </section>
+  );
+};
