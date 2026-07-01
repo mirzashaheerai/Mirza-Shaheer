@@ -21,7 +21,7 @@ export const ContactSection = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
+    loading || setLoading(true);
 
     try {
       // FIXED: Safely integrated your Formspree endpoint handler
@@ -55,8 +55,9 @@ export const ContactSection = () => {
 
   return (
     <section id="contact" className="w-full bg-white text-zinc-950 px-4 md:px-8 py-24 relative overflow-hidden">
-      {/* Dynamic 3D Theme Style Definitions */}
-      <style jsx global>{`
+      
+      {/* FIXED: Formatted custom style tags to pass Next.js strict production compilation */}
+      <style dangerouslySetInnerHTML={{__html: `
         @keyframes dynamicGlow {
           0% { border-color: #ff33a6; box-shadow: 0 0 15px rgba(255, 51, 166, 0.1); }
           33% { border-color: #591acc; box-shadow: 0 0 15px rgba(89, 26, 204, 0.1); }
@@ -75,7 +76,7 @@ export const ContactSection = () => {
         .theme-3d-svg-fill {
           fill: url(#theme3DGradientMesh);
         }
-      `}</style>
+      `}} />
       
       {/* Global Shared SVG Color Reference Block */}
       <svg className="absolute w-0 h-0" aria-hidden="true" focusable="false">
@@ -188,7 +189,7 @@ export const ContactSection = () => {
               ></textarea>
             </div>
             
-            {/* OUTLINE BUTTON: Dynamic 3D color boundary outline with hard-locked internal text gradient colors on hover */}
+            {/* OUTLINE BUTTON */}
             <motion.button
               whileHover={{ scale: 1.02, y: -1 }}
               whileTap={{ scale: 0.99 }}
