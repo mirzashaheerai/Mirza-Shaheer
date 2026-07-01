@@ -25,7 +25,8 @@
     "framer-motion": "^10.16.16",
     "lenis": "^1.3.0",
     "lucide-react": "^0.294.0",
-    "dotenv": "^16.3.1"
+    "dotenv": "^16.3.1",
+    "@vercel/kv": "^1.0.1"
   },
   "devDependencies": {
     "@types/three": "^0.169.0",
