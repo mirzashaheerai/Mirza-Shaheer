@@ -14,7 +14,8 @@ export const AboutSection = () => {
   };
 
   return (
-    <section id="about" className="w-full bg-white text-zinc-950 px-4 md:px-8 py-20">
+    /* FIXED: Decreased padding from py-20 to py-8 md:py-12 */
+    <section id="about" className="w-full bg-white text-zinc-950 px-4 md:px-8 py-8 md:py-12">
       {/* 3D Dynamic Border Color Rotation Engine */}
       <style jsx global>{`
         @keyframes border3DGlow {
